@@ -1,32 +1,32 @@
 public class Solution {
     public int[][] matrixReshape(int[][] nums, int r, int c) {
-    	
-    	//if the array is empty
-    	if(nums.length == 0) return nums;
+        int row = nums.length;
+        int col = (row<1?0:(nums[0].length));
 
-    	//if the number of elements in the array
-    	//can create the new array
-    	int r_original = nums.length;
-    	int c_original = nums[0].length;
-        if(r*c != r_original*c_original) return nums;
+        System.out.println("row: " + row + " col: " + col);
 
-        int[][] re_nums = new int[r][c];
+        if(row*col != r*c) return nums;
 
-        //reshape the array
-        int k = 0, l = 0;
-        for(int i=0;i<r_original;i++){
-        	for(int j=0;j<c_original;j++){
-        		
-        		if(l>=c) {
-        			l = 0;
-        			k++;
-        		}
+        int[][] res = new int[r][c];
 
-        		re_nums[k][l] = nums[i][j];
-        		l++;
+        int i=0, j=0, ni=0, nj=0;
+        while(i<row || j<col) {
+        	if(j == col) {
+        		j = 0;
+        		i++;
         	}
+
+        	if(nj == c){
+        		nj = 0;
+        		ni++;
+        	}
+
+        	res[ni][nj] = nums[i][j];
+        	j++;
+        	nj++;
         }
 
-        return re_nums;
+        return res;
+
     }
 }
